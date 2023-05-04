@@ -1,0 +1,23 @@
+# DiffVG reqs:
+svgwrite
+svgpathtools
+cssutils
+numba
+torch-tools
+visdom
+scikit-learn
+scikit-image
+matplotlib
+cmake
+
+# torch
+# torchvision
+tqdm
+opencv-python
+PyYAML
+easydict
+scikit-fmm
+
+# project reqs
+svgutils
+torchmetrics
