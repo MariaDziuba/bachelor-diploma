@@ -15,7 +15,7 @@ default:
     record: True
     stroke: False
 #  num_segments: 4
-  num_iter: 2000
+  num_iter: 200
   lr_base:
     bg: 0.01
     point: 1

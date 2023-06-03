@@ -28,15 +28,25 @@ from torch import optim
 from torch.utils.data.sampler import SubsetRandomSampler
 import time
 from create_dataset import create_df
-from main import Paths_model
-from main import create_tenzor
+from train2 import Paths_model
+from train2 import create_tenzor
 import yaml
+from diffusers import StableDiffusionPipeline
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-img = 'feather'
+model_path = "/home/mdziuba/code/diffusion_ckpt_v4"
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
+pipe.unet.load_attn_procs(model_path)
+pipe.to("cuda")
+
+site = input()
+prompt = "simple modern logo of " + site
+image = pipe(prompt, num_inference_steps=500, guidance_scale=7.5).images[0]
+img = site + ".png"
 in_dir = './images'
 out_dir = '.'
+image.save(f'{in_dir}/{img}')
 
 os.system(f'./vtracer-linux --input {in_dir}/{img}.png --output {out_dir}/vtracer_{img}.svg')
 
@@ -44,10 +54,9 @@ df = pd.DataFrame(data={'full_path': [f'{out_dir}/vtracer_{img}.svg'], 'name': [
 
 df = create_df(df)
 
-
 model = Paths_model()
 
-checkpoint = torch.load('./checkpoint/paths_wdd_5conv_2fc_best_model_24_04.pt')
+checkpoint = torch.load('./checkpoint/paths.pt')
 model.load_state_dict(checkpoint['model_state_dict'])
 
 if torch.cuda.is_available():
