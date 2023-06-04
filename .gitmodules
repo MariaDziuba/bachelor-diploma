@@ -1,0 +1,3 @@
+[submodule "LIVE"]
+	path = LIVE
+	url = https://github.com/Picsart-AI-Research/LIVE-Layerwise-Image-Vectorization.git
