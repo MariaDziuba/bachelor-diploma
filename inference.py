@@ -43,8 +43,8 @@ pipe.to("cuda")
 site = input()
 prompt = "simple modern logo of " + site
 image = pipe(prompt, num_inference_steps=500, guidance_scale=7.5).images[0]
-img = site + ".png"
-in_dir = './images'
+img = "1.png"
+in_dir = '.'
 out_dir = '.'
 image.save(f'{in_dir}/{img}')
 
